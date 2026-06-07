@@ -1,0 +1,36 @@
+[package]
+name = "telescreen"
+version = "0.3.0"
+edition = "2021"
+description = "A cross-platform command-line session logger — wrap a command or daemonize for full terminal logging"
+authors = ["Telescreen Authors"]
+license = "MIT"
+
+[[bin]]
+name = "telescreen"
+path = "src/main.rs"
+
+[dependencies]
+clap      = { version = "4", features = ["derive"] }
+serde     = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+dirs-next = "2"
+chrono    = { version = "0.4", features = ["serde"] }
+tokio     = { version = "1", features = ["full"] }
+ctrlc     = { version = "3", features = ["termination"] }
+log       = "0.4"
+env_logger = "0.11"
+regex     = "1"
+
+# PTY + POSIX syscalls — Linux / macOS only.
+# nix 0.29 features: "fs" "process" "signal" "term" (no "pty" — that lives under "term")
+[target.'cfg(unix)'.dependencies]
+nix  = { version = "0.29", features = ["fs", "process", "signal", "term", "user"] }
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"

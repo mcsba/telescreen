@@ -1,0 +1,17 @@
+# Telescreen configuration
+# All fields are optional — delete any line to use the built-in default.
+# Reload: telescreen stop && telescreen start
+
+pid_file: /run/telescreen/telescreen.pid
+agent_sock: /run/telescreen/agent.sock
+ctrl_sock: /run/telescreen/ctrl.sock
+diag_log: /var/log/telescreen/daemon.log
+output_log: /var/log/telescreen/
+json_log: /var/log/telescreen/session.jsonl
+format: both
+shell: /bin/bash
+log_stdin: true
+log_stdout: true
+log_stderr: true
+strip_ansi: true
+
